@@ -28,11 +28,17 @@ module.exports = class SitelenPona extends Plugin {
 
     async handleCommand(args) {
         const canvas = document.createElement("canvas");
+        const externalFont = this.settings.get("externalFont", false);
+        const fontSource = externalFont
+            ? this.settings.get("fontUrl", "https://example.com/font.ttf")
+            : this.settings.get("font", "linja sike");
         const fontColor =
             "#" + this.settings.get("fontColor", 0xffffff).toString(16);
         const fontSize = this.settings.get("fontSize", 72);
-        const font = this.settings.get("font", "linja sike");
-        await loadFont(font, FONTS[font]);
+        const font = externalFont ? "sitelen-pona-font" : fontSource;
+
+        await loadFont(fontSource, externalFont);
+
         sitelen(canvas, [...args].join(" "), {
             fontColor,
             fontSize,
