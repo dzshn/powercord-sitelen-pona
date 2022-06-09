@@ -1,5 +1,4 @@
 const { React } = require("powercord/webpack");
-const { get } = require("powercord/http");
 const {
     ColorPickerInput,
     SelectInput,
